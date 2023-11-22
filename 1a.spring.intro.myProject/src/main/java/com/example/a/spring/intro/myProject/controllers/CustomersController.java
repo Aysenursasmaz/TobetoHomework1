@@ -39,7 +39,7 @@ public class CustomersController {
         Customer customerToUpdate = customerRepository.findById(id).orElseThrow();
         customerToUpdate.setName(customer.getName());
         customerToUpdate.setLastName(customer.getLastName());
-        customerToUpdate.setAddress(customer.getAddress());
+        customerToUpdate.setAdress(customer.getAdress());
         customerToUpdate.setMail(customer.getMail());
         customerRepository.save(customerToUpdate);
 
