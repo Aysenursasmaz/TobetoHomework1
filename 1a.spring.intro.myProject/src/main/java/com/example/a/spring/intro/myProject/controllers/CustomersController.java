@@ -2,6 +2,9 @@ package com.example.a.spring.intro.myProject.controllers;
 
 import com.example.a.spring.intro.myProject.entities.Customer;
 import com.example.a.spring.intro.myProject.repositories.CustomerRepository;
+import com.example.a.spring.intro.myProject.services.abstracts.CustomerService;
+import com.example.a.spring.intro.myProject.services.dtos.customer.requests.AddCustomerRequest;
+import com.example.a.spring.intro.myProject.services.dtos.customer.requests.UpdateCustomerRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,38 +13,21 @@ import java.util.List;
 @RequestMapping("api/customers")
 
 public class CustomersController {
-    private final CustomerRepository customerRepository;
+ private CustomerService customerService;
 
-    public CustomersController(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-    }
-    @GetMapping
-    public List<Customer> getAll(){
-        List<Customer> customers = customerRepository.findAll();
-        return customers;
-    }
-    @GetMapping("{id}")
-    public Customer getById(@PathVariable int id){
-        return customerRepository.findById(id).orElseThrow();
-
+    public CustomersController(CustomerService customerService) {
+        this.customerService = customerService;
     }
     @PostMapping
-    public void add(@RequestBody Customer customer){
-        customerRepository.save(customer);
+    public void add(@RequestBody AddCustomerRequest request){
+        customerService.add(request);
+    }
+    @PutMapping("{id}")
+    public void update(@RequestBody UpdateCustomerRequest request){
+        customerService.update(request);
     }
     @DeleteMapping("{id}")
     public void delete(@PathVariable int id){
-        Customer customerToDelete = customerRepository.findById(id).orElseThrow();
-        customerRepository.delete(customerToDelete);
-    }
-    @PutMapping("{id}")
-    public void update(@PathVariable int id, @RequestBody Customer customer) {
-        Customer customerToUpdate = customerRepository.findById(id).orElseThrow();
-        customerToUpdate.setName(customer.getName());
-        customerToUpdate.setLastName(customer.getLastName());
-        customerToUpdate.setAdress(customer.getAdress());
-        customerToUpdate.setMail(customer.getMail());
-        customerRepository.save(customerToUpdate);
-
+        customerService.delete(id);
     }
 }

@@ -2,6 +2,9 @@ package com.example.a.spring.intro.myProject.controllers;
 
 import com.example.a.spring.intro.myProject.entities.Brand;
 import com.example.a.spring.intro.myProject.repositories.BrandRepository;
+import com.example.a.spring.intro.myProject.services.abstracts.BrandService;
+import com.example.a.spring.intro.myProject.services.dtos.brand.requests.AddBrandRequest;
+import com.example.a.spring.intro.myProject.services.dtos.brand.requests.UpdateBrandRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,37 +13,25 @@ import java.util.List;
 @RequestMapping("api/brands")
 
 public class BrandsController {
-    private final BrandRepository brandRepository;
+    private BrandService brandService;
 
-    public BrandsController(BrandRepository brandRepository) {
-
-        this.brandRepository = brandRepository;
+    public BrandsController(BrandService brandService) {
+        this.brandService = brandService;
     }
 
-    @GetMapping
-    public List<Brand> getAll(){
-        List<Brand> brands= brandRepository.findAll();
-        return brands;
-    }
-    @GetMapping("{id}")
-    public Brand getById(@PathVariable int id){
 
-        return brandRepository.findById(id).orElseThrow();
-    }
     @PostMapping
-    public void add(@RequestBody Brand  brand){
-        brandRepository.save(brand);
+    public void add(@RequestBody AddBrandRequest request){
+        brandService.add(request);
+
+    }
+    @PutMapping("{id}")
+    public void update(@RequestBody UpdateBrandRequest request){
+        brandService.update(request);
     }
     @DeleteMapping("{id}")
     public void delete(@PathVariable int id){
-        Brand brandToDelete = brandRepository.findById(id).orElseThrow();
-        brandRepository.delete(brandToDelete);
-    }
-    @PutMapping("{id}")
-    public void update(@PathVariable int id, @RequestBody Brand brand){
-        Brand brandToUpdate = brandRepository.findById(id).orElseThrow();
-        brandToUpdate.setBrandName(brand.getBrandName());
-        brandRepository.save(brandToUpdate);
+        brandService.delete(id);
     }
 
 

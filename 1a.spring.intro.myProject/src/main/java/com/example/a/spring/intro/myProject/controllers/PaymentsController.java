@@ -3,6 +3,9 @@ package com.example.a.spring.intro.myProject.controllers;
 import com.example.a.spring.intro.myProject.entities.Payment;
 import com.example.a.spring.intro.myProject.entities.Rental;
 import com.example.a.spring.intro.myProject.repositories.PaymentRepository;
+import com.example.a.spring.intro.myProject.services.abstracts.PaymentService;
+import com.example.a.spring.intro.myProject.services.dtos.payment.requests.AddPaymentRequest;
+import com.example.a.spring.intro.myProject.services.dtos.payment.requests.UpdatePaymentRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,36 +14,23 @@ import java.util.List;
 @RequestMapping("api/payments")
 
 public class PaymentsController {
-    private final PaymentRepository paymentRepository;
+    private PaymentService paymentService;
 
-    public PaymentsController(PaymentRepository paymentRepository) {
-        this.paymentRepository = paymentRepository;
+    public PaymentsController(PaymentService paymentService) {
+        this.paymentService = paymentService;
     }
-    @GetMapping
-    public List<Payment> getAll(){
-        List<Payment> payments = paymentRepository.findAll();
-        return payments;
-    }
-    @GetMapping("{id}")
-    public Payment getById(@PathVariable int id){
-        return paymentRepository.findById(id).orElseThrow();
-    }
-    @PostMapping
-    public void add(@RequestBody Payment payment){
-        paymentRepository.save(payment);
-
-    }
-    @DeleteMapping("{id}")
+  @PostMapping
+    public void add(@RequestBody AddPaymentRequest request){
+        paymentService.add(request);
+  }
+  @PutMapping("{id}")
+    public void update(@RequestBody UpdatePaymentRequest request){
+        paymentService.update(request);
+  }
+  @DeleteMapping("{id}")
     public void delete(@PathVariable int id){
-        Payment paymentToDelete = paymentRepository.findById(id).orElseThrow();
-        paymentRepository.delete(paymentToDelete);
-    }
-    @PutMapping("{id}")
-    public void update(@PathVariable int id, @RequestBody Payment payment){
-        Payment paymentToUpdate = paymentRepository.findById(id).orElseThrow();
-        paymentToUpdate.setCashPayment(payment.getCashPayment());
-        paymentToUpdate.setCreditCardPayment(payment.getCreditCardPayment());
-        paymentRepository.save(paymentToUpdate);
-    }
+        paymentService.delete(id);
+  }
+
 
 }
