@@ -5,7 +5,10 @@ import com.example.a.spring.intro.myProject.repositories.BrandRepository;
 import com.example.a.spring.intro.myProject.services.abstracts.BrandService;
 import com.example.a.spring.intro.myProject.services.dtos.brand.requests.AddBrandRequest;
 import com.example.a.spring.intro.myProject.services.dtos.brand.requests.UpdateBrandRequest;
+import com.example.a.spring.intro.myProject.services.dtos.brand.responses.GetListBrandResponse;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 
@@ -35,6 +38,16 @@ public class BrandManager implements BrandService {
         Brand brand = brandRepository.findById(id).orElseThrow();
         brandRepository.delete(brand);
 
+    }
+
+    @Override
+    public List<Brand> getByBrandName(String brandName) {
+        return brandRepository.findByBrandNameStartingWith(brandName);
+    }
+
+    @Override
+    public List<GetListBrandResponse> getByName(String brandName) {
+        return brandRepository.findByName(brandName);
     }
 
 

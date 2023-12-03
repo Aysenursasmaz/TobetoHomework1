@@ -5,7 +5,10 @@ import com.example.a.spring.intro.myProject.repositories.PaymentRepository;
 import com.example.a.spring.intro.myProject.services.abstracts.PaymentService;
 import com.example.a.spring.intro.myProject.services.dtos.payment.requests.AddPaymentRequest;
 import com.example.a.spring.intro.myProject.services.dtos.payment.requests.UpdatePaymentRequest;
+import com.example.a.spring.intro.myProject.services.dtos.payment.responses.GetListPaymentResponse;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 
@@ -37,6 +40,16 @@ public class PaymentManager implements PaymentService {
     public void delete(int id) {
         Payment payment = paymentRepository.findById(id).orElseThrow();
         paymentRepository.delete(payment);
+    }
+
+    @Override
+    public List<GetListPaymentResponse> getAll() {
+        return paymentRepository.findPaymentAll();
+    }
+
+    @Override
+    public List<Payment> isTrue(boolean payment) {
+        return paymentRepository.findBycashPaymentIs(payment);
     }
 
 }

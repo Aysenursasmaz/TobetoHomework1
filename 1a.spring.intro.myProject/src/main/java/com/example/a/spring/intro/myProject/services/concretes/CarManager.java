@@ -5,7 +5,10 @@ import com.example.a.spring.intro.myProject.repositories.CarRepository;
 import com.example.a.spring.intro.myProject.services.abstracts.CarService;
 import com.example.a.spring.intro.myProject.services.dtos.car.requests.AddCarRequest;
 import com.example.a.spring.intro.myProject.services.dtos.car.requests.UpdateCarRequest;
+import com.example.a.spring.intro.myProject.services.dtos.car.responses.GetListCarResponse;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 
@@ -41,6 +44,16 @@ public class CarManager implements CarService {
     public void delete(int id) {
         Car car = carRepository.findById(id).orElseThrow();
         carRepository.delete(car);
+    }
+
+    @Override
+    public List<GetListCarResponse> getByModelName(String name) {
+        return carRepository.findByName(name);
+    }
+
+    @Override
+    public List<GetListCarResponse> getByModelYear(int year) {
+        return carRepository.findByYearBefore(year);
     }
 
 

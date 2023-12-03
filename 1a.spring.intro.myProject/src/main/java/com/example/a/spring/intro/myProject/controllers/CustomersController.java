@@ -5,6 +5,7 @@ import com.example.a.spring.intro.myProject.repositories.CustomerRepository;
 import com.example.a.spring.intro.myProject.services.abstracts.CustomerService;
 import com.example.a.spring.intro.myProject.services.dtos.customer.requests.AddCustomerRequest;
 import com.example.a.spring.intro.myProject.services.dtos.customer.requests.UpdateCustomerRequest;
+import com.example.a.spring.intro.myProject.services.dtos.customer.responses.GetListCustomerResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,5 +30,13 @@ public class CustomersController {
     @DeleteMapping("{id}")
     public void delete(@PathVariable int id){
         customerService.delete(id);
+    }
+    @GetMapping("dto")
+        public List<GetListCustomerResponse> orderById(){
+        return customerService.orderById();
+    }
+    @GetMapping("dto/lastName")
+    public List<GetListCustomerResponse> getByLastName(){
+        return customerService.getByLastName();
     }
 }

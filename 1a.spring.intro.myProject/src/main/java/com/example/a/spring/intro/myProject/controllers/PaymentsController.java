@@ -6,6 +6,7 @@ import com.example.a.spring.intro.myProject.repositories.PaymentRepository;
 import com.example.a.spring.intro.myProject.services.abstracts.PaymentService;
 import com.example.a.spring.intro.myProject.services.dtos.payment.requests.AddPaymentRequest;
 import com.example.a.spring.intro.myProject.services.dtos.payment.requests.UpdatePaymentRequest;
+import com.example.a.spring.intro.myProject.services.dtos.payment.responses.GetListPaymentResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +32,15 @@ public class PaymentsController {
     public void delete(@PathVariable int id){
         paymentService.delete(id);
   }
+  @GetMapping("payment")
+    public List<GetListPaymentResponse> getAll(){
+        return paymentService.getAll();
+  }
+  @GetMapping("payment/true")
+    public List<Payment> isTrue(@RequestParam boolean payment){
+        return paymentService.isTrue(payment);
+  }
+
 
 
 }

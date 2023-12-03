@@ -5,7 +5,10 @@ import com.example.a.spring.intro.myProject.repositories.RentalRepository;
 import com.example.a.spring.intro.myProject.services.abstracts.RentalService;
 import com.example.a.spring.intro.myProject.services.dtos.rental.requests.AddRentalRequest;
 import com.example.a.spring.intro.myProject.services.dtos.rental.requests.UpdateRentalRequest;
+import com.example.a.spring.intro.myProject.services.dtos.rental.responses.GetListRentalResponse;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 
@@ -48,4 +51,18 @@ public class RentalManager implements RentalService {
         rentalRepository.delete(rental);
 
     }
+
+    @Override
+    public List<Rental> getDateRented(String date) {
+        return rentalRepository.findByDateRented(date);
+    }
+
+    @Override
+    public List<GetListRentalResponse> getByPrice(double price) {
+        return rentalRepository.findByPriceGreaterThan(price);
+    }
+
+
+
+
 }
