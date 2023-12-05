@@ -46,8 +46,10 @@ public class BrandManager implements BrandService {
     }
 
     @Override
-    public List<GetListBrandResponse> getByName(String brandName) {
-        return brandRepository.findByName(brandName);
+    public List<GetListBrandResponse> getByName(String brandName)
+    {
+        return brandRepository.findByName(brandName).stream().map((brand)-> new GetListBrandResponse(brand.getId(),brand.getBrandName()))
+                .toList();
     }
 
 

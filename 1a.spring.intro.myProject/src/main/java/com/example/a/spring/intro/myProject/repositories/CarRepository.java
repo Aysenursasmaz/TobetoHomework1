@@ -13,7 +13,7 @@ public interface CarRepository extends JpaRepository<Car,Integer> {
             "from Car c WHERE c.modelName= :name")
 List<GetListCarResponse> findByName(String name);
     @Query("Select new com.example.a.spring.intro.myProject.services.dtos.car.responses.GetListCarResponse(c.modelYear,c.modelName)" +
-            "from Car c WHERE c.modelYear= :year")
+            "from Car c WHERE c.modelYear<:year")
 
     List<GetListCarResponse> findByYearBefore(int year);
 }

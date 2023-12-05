@@ -44,7 +44,8 @@ public class PaymentManager implements PaymentService {
 
     @Override
     public List<GetListPaymentResponse> getAll() {
-        return paymentRepository.findPaymentAll();
+        return paymentRepository.findPaymentAll().stream()
+                .map(payment->new GetListPaymentResponse(payment.isCashPayment(), payment.isCreditCardPayment())).toList();
     }
 
     @Override

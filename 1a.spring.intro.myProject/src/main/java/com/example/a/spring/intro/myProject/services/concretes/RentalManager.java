@@ -59,7 +59,10 @@ public class RentalManager implements RentalService {
 
     @Override
     public List<GetListRentalResponse> getByPrice(double price) {
-        return rentalRepository.findByPriceGreaterThan(price);
+        return rentalRepository.findByPriceGreaterThan(price).stream()
+                .map(rental->new GetListRentalResponse(rental.getDateRented(), rental.getPrice()))
+                .filter(rental-> rental.getPrice()>price)
+                .toList();
     }
 
 

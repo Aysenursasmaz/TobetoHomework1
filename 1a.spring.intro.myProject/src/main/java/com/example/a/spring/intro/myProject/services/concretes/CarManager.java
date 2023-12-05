@@ -9,6 +9,7 @@ import com.example.a.spring.intro.myProject.services.dtos.car.responses.GetListC
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 
@@ -48,12 +49,17 @@ public class CarManager implements CarService {
 
     @Override
     public List<GetListCarResponse> getByModelName(String name) {
-        return carRepository.findByName(name);
+
+        return carRepository.findByName(name).stream()
+                .map((car)->new GetListCarResponse(car.getModelYear(), car.getModelName())).toList();
     }
 
     @Override
     public List<GetListCarResponse> getByModelYear(int year) {
-        return carRepository.findByYearBefore(year);
+        return  carRepository.findByYearBefore(year).stream()
+                .filter(car-> car.getModelYear()<year)
+                .map(car-> new GetListCarResponse(car.getModelYear(), car.getModelName()))
+                .toList();
     }
 
 
