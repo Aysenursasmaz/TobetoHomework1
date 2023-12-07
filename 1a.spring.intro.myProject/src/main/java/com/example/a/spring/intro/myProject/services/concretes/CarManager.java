@@ -6,32 +6,40 @@ import com.example.a.spring.intro.myProject.services.abstracts.CarService;
 import com.example.a.spring.intro.myProject.services.dtos.car.requests.AddCarRequest;
 import com.example.a.spring.intro.myProject.services.dtos.car.requests.UpdateCarRequest;
 import com.example.a.spring.intro.myProject.services.dtos.car.responses.GetListCarResponse;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 
 public class CarManager implements CarService {
     private CarRepository carRepository;
 
-    public CarManager(CarRepository carRepository) {
-        this.carRepository = carRepository;
-    }
 
     @Override
     public void add(AddCarRequest request) {
+        if(carRepository.existsCarByModelName(request.getModelName())){
+            throw new RuntimeException("Aynı model ismine sahip 2 araç olamaz.");
+        }
         Car car = new Car();
         car.setModelName(request.getModelName());
         car.setModelYear(request.getModelYear());
         car.setMileages(request.getMileages());
         car.setBrand(request.getBrand());
         carRepository.save(car);
-    }
+
+
+      }
+
 
     @Override
     public void update(UpdateCarRequest request) {
+        if(carRepository.existsById(request.getId())){
+            throw new RuntimeException("Aynı id girilemez.");
+        }
         Car car = carRepository.findById(request.getId()).orElseThrow();
         car.setModelName(request.getModelName());
         car.setModelYear(request.getModelYear());
@@ -61,6 +69,7 @@ public class CarManager implements CarService {
                 .map(car-> new GetListCarResponse(car.getModelYear(), car.getModelName()))
                 .toList();
     }
+
 
 
 }

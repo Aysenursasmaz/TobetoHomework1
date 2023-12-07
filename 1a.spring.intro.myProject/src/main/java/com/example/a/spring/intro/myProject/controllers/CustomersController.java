@@ -6,6 +6,7 @@ import com.example.a.spring.intro.myProject.services.abstracts.CustomerService;
 import com.example.a.spring.intro.myProject.services.dtos.customer.requests.AddCustomerRequest;
 import com.example.a.spring.intro.myProject.services.dtos.customer.requests.UpdateCustomerRequest;
 import com.example.a.spring.intro.myProject.services.dtos.customer.responses.GetListCustomerResponse;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,11 +21,11 @@ public class CustomersController {
         this.customerService = customerService;
     }
     @PostMapping
-    public void add(@RequestBody AddCustomerRequest request){
+    public void add(@RequestBody @Valid AddCustomerRequest request){
         customerService.add(request);
     }
     @PutMapping("{id}")
-    public void update(@RequestBody UpdateCustomerRequest request){
+    public void update(@RequestBody @Valid UpdateCustomerRequest request){
         customerService.update(request);
     }
     @DeleteMapping("{id}")

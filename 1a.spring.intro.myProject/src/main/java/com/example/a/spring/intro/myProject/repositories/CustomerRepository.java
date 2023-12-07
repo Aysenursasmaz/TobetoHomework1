@@ -14,4 +14,6 @@ public interface CustomerRepository extends JpaRepository<Customer,Integer> {
     @Query("Select NEW com.example.a.spring.intro.myProject.services.dtos.customer.responses.GetListCustomerResponse(cu.id, cu.lastName)" +
             "FROM Customer cu WHERE cu.lastName LIKE 's%'")
     List<GetListCustomerResponse> findByLastNameLike();
+    boolean existsByMail (String mail);
+    boolean existsByAdress(String adress);
 }

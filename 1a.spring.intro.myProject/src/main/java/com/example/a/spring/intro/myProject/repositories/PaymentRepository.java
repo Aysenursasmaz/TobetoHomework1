@@ -12,5 +12,7 @@ public interface PaymentRepository extends JpaRepository<Payment,Integer> {
             " from Payment p ")
     List<GetListPaymentResponse> findPaymentAll();
     List<Payment> findBycashPaymentIs(boolean payment);
+    boolean existsById(int id);
+
 
 }

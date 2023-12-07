@@ -20,6 +20,11 @@ public class BrandManager implements BrandService {
     }
     @Override
     public void add(AddBrandRequest request) {
+        if(brandRepository.existsByBrandName(request.getBrandName())){
+            throw new RuntimeException("Bu marka ismi zaten var");
+
+        }
+
 
         Brand brand = new Brand();
         brand.setBrandName(request.getBrandName());
@@ -28,6 +33,7 @@ public class BrandManager implements BrandService {
 
     @Override
     public void update(UpdateBrandRequest request) {
+
     Brand brand = brandRepository.findById(request.getId()).orElseThrow();
     brand.setBrandName(request.getBrandName());
     brandRepository.save(brand);
@@ -35,6 +41,10 @@ public class BrandManager implements BrandService {
 
     @Override
     public void delete(int id) {
+        if(brandRepository.existsById(id)){
+            throw new RuntimeException("Id numaraları silinemez");
+        }
+
         Brand brand = brandRepository.findById(id).orElseThrow();
         brandRepository.delete(brand);
 

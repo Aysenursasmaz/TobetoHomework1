@@ -12,4 +12,8 @@ public interface RentalRepository extends JpaRepository<Rental,Integer> {
     @Query("SELECT NEW com.example.a.spring.intro.myProject.services.dtos.rental.responses.GetListRentalResponse(r.dateRented, r.price) " +
             "FROM Rental r WHERE r.price > :price")
     List<GetListRentalResponse> findByPriceGreaterThan(double price);
+    boolean existsByDateRented(String dateRented);
+
+    @Override
+    boolean existsById(Integer id);
 }

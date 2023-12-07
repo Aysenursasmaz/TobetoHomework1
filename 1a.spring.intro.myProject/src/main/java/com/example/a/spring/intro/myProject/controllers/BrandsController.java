@@ -6,6 +6,7 @@ import com.example.a.spring.intro.myProject.services.abstracts.BrandService;
 import com.example.a.spring.intro.myProject.services.dtos.brand.requests.AddBrandRequest;
 import com.example.a.spring.intro.myProject.services.dtos.brand.requests.UpdateBrandRequest;
 import com.example.a.spring.intro.myProject.services.dtos.brand.responses.GetListBrandResponse;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class BrandsController {
 
 
     @PostMapping
-    public void add(@RequestBody AddBrandRequest request){
+    public void add(@RequestBody @Valid AddBrandRequest request){
         brandService.add(request);
 
     }
@@ -31,7 +32,7 @@ public class BrandsController {
         brandService.update(request);
     }
     @DeleteMapping("{id}")
-    public void delete(@PathVariable int id){
+    public void delete(@PathVariable @Valid int id){
         brandService.delete(id);
     }
     @GetMapping

@@ -21,6 +21,7 @@ public class PaymentManager implements PaymentService {
 
     @Override
     public void add(AddPaymentRequest request) {
+
         Payment payment = new Payment();
         payment.setCashPayment(request.isCashPayment());
         payment.setCreditCardPayment(request.isCreditCardPayment());
@@ -30,6 +31,9 @@ public class PaymentManager implements PaymentService {
 
     @Override
     public void update(UpdatePaymentRequest request) {
+        if (paymentRepository.existsById(request.getId())){
+            throw new RuntimeException("ödeme işlemi bir kere yapılabilir ");
+        }
         Payment payment = paymentRepository.findById(request.getId()).orElseThrow();
         payment.setCashPayment(request.isCashPayment());
         payment.setCreditCardPayment(request.isCreditCardPayment());

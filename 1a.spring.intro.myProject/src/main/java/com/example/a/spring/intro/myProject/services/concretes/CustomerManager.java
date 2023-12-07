@@ -23,6 +23,9 @@ public class CustomerManager implements CustomerService {
 
     @Override
     public void add(AddCustomerRequest request) {
+        if (customerRepository.existsByMail(request.getMail())){
+            throw new RuntimeException("Farklı bir mail adresi girin");
+        }
         Customer customer = new Customer();
         customer.setName(request.getName());
         customer.setLastName(request.getLastName());
@@ -35,6 +38,9 @@ public class CustomerManager implements CustomerService {
 
     @Override
     public void update(UpdateCustomerRequest request) {
+        if(customerRepository.existsByAdress(request.getAdress())){
+            throw new RuntimeException("Aynı adresi giremezsiniz");
+        }
         Customer customer = customerRepository.findById(request.getId()).orElseThrow();
         customer.setName(request.getName());
         customer.setLastName(request.getLastName());

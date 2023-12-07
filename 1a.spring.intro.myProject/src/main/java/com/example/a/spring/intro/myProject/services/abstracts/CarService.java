@@ -14,5 +14,6 @@ public interface CarService {
     void delete(int id);
     List<GetListCarResponse> getByModelName(String name);
     List<GetListCarResponse>  getByModelYear(int year);
+
 }
 

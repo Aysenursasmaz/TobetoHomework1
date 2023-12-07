@@ -13,7 +13,9 @@ import java.util.List;
 @Service
 
 public class RentalManager implements RentalService {
+
     private RentalRepository rentalRepository;
+
 
     public RentalManager(RentalRepository rentalRepository) {
         this.rentalRepository = rentalRepository;
@@ -21,6 +23,9 @@ public class RentalManager implements RentalService {
 
     @Override
     public void add(AddRentalRequest request) {
+        if(rentalRepository.existsByDateRented(request.getDateRented())){
+            throw new RuntimeException("Bu tarih rezervedir,farklı tarih giriniz");
+        }
         Rental rental = new Rental();
         rental.setPrice(request.getPrice());
         rental.setDateRented(request.getDateRented());
@@ -47,6 +52,9 @@ public class RentalManager implements RentalService {
 
     @Override
     public void delete(int id) {
+        if(rentalRepository.existsById(id)){
+            throw new RuntimeException("Id numarası silinemez");
+        }
         Rental rental = rentalRepository.findById(id).orElseThrow();
         rentalRepository.delete(rental);
 

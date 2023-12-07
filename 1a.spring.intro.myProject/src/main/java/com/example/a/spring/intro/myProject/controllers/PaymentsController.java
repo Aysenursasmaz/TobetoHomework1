@@ -7,6 +7,7 @@ import com.example.a.spring.intro.myProject.services.abstracts.PaymentService;
 import com.example.a.spring.intro.myProject.services.dtos.payment.requests.AddPaymentRequest;
 import com.example.a.spring.intro.myProject.services.dtos.payment.requests.UpdatePaymentRequest;
 import com.example.a.spring.intro.myProject.services.dtos.payment.responses.GetListPaymentResponse;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class PaymentsController {
         paymentService.add(request);
   }
   @PutMapping("{id}")
-    public void update(@RequestBody UpdatePaymentRequest request){
+    public void update(@RequestBody @Valid UpdatePaymentRequest request){
         paymentService.update(request);
   }
   @DeleteMapping("{id}")

@@ -4,6 +4,7 @@ import com.example.a.spring.intro.myProject.services.abstracts.CarService;
 import com.example.a.spring.intro.myProject.services.dtos.car.requests.AddCarRequest;
 import com.example.a.spring.intro.myProject.services.dtos.car.requests.UpdateCarRequest;
 import com.example.a.spring.intro.myProject.services.dtos.car.responses.GetListCarResponse;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,11 +18,11 @@ public class CarsController {
         this.carService = carService;
     }
     @PostMapping
-    public void add(@RequestBody AddCarRequest request){
+    public void add(@RequestBody @Valid AddCarRequest request){
         carService.add(request);
     }
     @PutMapping("{id}")
-    public void update(@RequestBody UpdateCarRequest request){
+    public void update(@RequestBody @Valid UpdateCarRequest request){
         carService.update(request);
     }
     @DeleteMapping("{id}")

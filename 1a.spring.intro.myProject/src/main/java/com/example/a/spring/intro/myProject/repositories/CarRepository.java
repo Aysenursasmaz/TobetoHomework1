@@ -16,4 +16,8 @@ List<GetListCarResponse> findByName(String name);
             "from Car c WHERE c.modelYear<:year")
 
     List<GetListCarResponse> findByYearBefore(int year);
+    boolean existsCarByModelName(String modelName);
+
+    @Override
+    boolean existsById(Integer id);
 }
