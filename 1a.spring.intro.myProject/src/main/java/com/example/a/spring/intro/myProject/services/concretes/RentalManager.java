@@ -30,7 +30,7 @@ public class RentalManager implements RentalService {
         rental.setPrice(request.getPrice());
         rental.setDateRented(request.getDateRented());
         rental.setDateReturned(request.getDateReturned());
-        rental.setCustomer(request.getCustomer());
+        rental.setUser(request.getUser());
         rental.setPayment(request.getPayment());
         rental.setCar(request.getCar());
         rentalRepository.save(rental);
@@ -44,7 +44,7 @@ public class RentalManager implements RentalService {
         rental.setPrice(request.getPrice());
         rental.setDateRented(request.getDateRented());
         rental.setDateReturned(request.getDateReturned());
-        rental.setCustomer(request.getCustomer());
+        rental.setUser(request.getUser());
         rental.setPayment(request.getPayment());
         rental.setCar(request.getCar());
         rentalRepository.save(rental);

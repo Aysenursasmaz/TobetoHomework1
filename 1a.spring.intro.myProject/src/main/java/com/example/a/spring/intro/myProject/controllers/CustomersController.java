@@ -1,11 +1,9 @@
 package com.example.a.spring.intro.myProject.controllers;
 
-import com.example.a.spring.intro.myProject.entities.Customer;
-import com.example.a.spring.intro.myProject.repositories.CustomerRepository;
-import com.example.a.spring.intro.myProject.services.abstracts.CustomerService;
-import com.example.a.spring.intro.myProject.services.dtos.customer.requests.AddCustomerRequest;
-import com.example.a.spring.intro.myProject.services.dtos.customer.requests.UpdateCustomerRequest;
-import com.example.a.spring.intro.myProject.services.dtos.customer.responses.GetListCustomerResponse;
+import com.example.a.spring.intro.myProject.services.abstracts.UserService;
+import com.example.a.spring.intro.myProject.services.dtos.user.requests.AddUserRequest;
+import com.example.a.spring.intro.myProject.services.dtos.user.requests.UpdateUserRequest;
+import com.example.a.spring.intro.myProject.services.dtos.user.responses.GetListUserResponse;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,29 +13,29 @@ import java.util.List;
 @RequestMapping("api/customers")
 
 public class CustomersController {
- private CustomerService customerService;
+ private UserService userService;
 
-    public CustomersController(CustomerService customerService) {
-        this.customerService = customerService;
+    public CustomersController(UserService userService) {
+        this.userService = userService;
     }
     @PostMapping
-    public void add(@RequestBody @Valid AddCustomerRequest request){
-        customerService.add(request);
+    public void add(@RequestBody @Valid AddUserRequest request){
+        userService.add(request);
     }
     @PutMapping("{id}")
-    public void update(@RequestBody @Valid UpdateCustomerRequest request){
-        customerService.update(request);
+    public void update(@RequestBody @Valid UpdateUserRequest request){
+        userService.update(request);
     }
     @DeleteMapping("{id}")
     public void delete(@PathVariable int id){
-        customerService.delete(id);
+        userService.delete(id);
     }
     @GetMapping("dto")
-        public List<GetListCustomerResponse> orderById(){
-        return customerService.orderById();
+        public List<GetListUserResponse> orderById(){
+        return userService.orderById();
     }
     @GetMapping("dto/lastName")
-    public List<GetListCustomerResponse> getByLastName(){
-        return customerService.getByLastName();
+    public List<GetListUserResponse> getByLastName(){
+        return userService.getByLastName();
     }
 }

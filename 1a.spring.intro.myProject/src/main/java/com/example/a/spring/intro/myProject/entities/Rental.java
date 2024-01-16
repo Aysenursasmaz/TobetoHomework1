@@ -3,8 +3,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-
 @Table(name="rental")
 @Entity
 @Getter
@@ -27,8 +25,8 @@ public class Rental {
     @JoinColumn(name="car_id")
     private Car car;
     @ManyToOne
-    @JoinColumn(name="customer_id")
-    private Customer customer;
+    @JoinColumn(name="user_id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name="payment_id")

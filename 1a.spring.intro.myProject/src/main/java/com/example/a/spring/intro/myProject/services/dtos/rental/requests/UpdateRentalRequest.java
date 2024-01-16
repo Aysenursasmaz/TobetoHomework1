@@ -1,7 +1,7 @@
 package com.example.a.spring.intro.myProject.services.dtos.rental.requests;
 
 import com.example.a.spring.intro.myProject.entities.Car;
-import com.example.a.spring.intro.myProject.entities.Customer;
+import com.example.a.spring.intro.myProject.entities.User;
 import com.example.a.spring.intro.myProject.entities.Payment;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -23,7 +23,7 @@ public class UpdateRentalRequest {
     @NotNull(message = "Alan boş bırakılamaz")
     private Car car;
     @NotBlank(message = "Alan boş bırakılamaz")
-    private Customer customer;
+    private User user;
     @Positive(message = "Ödeme yapılmalıdır")
     private Payment payment;
 
